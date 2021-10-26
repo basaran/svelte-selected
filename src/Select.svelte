@@ -11,6 +11,7 @@
 
     const dispatch = createEventDispatcher();
 
+    export let keepOpen = false;
     export let id = null;
     export let container = undefined;
     export let input = undefined;
@@ -601,7 +602,14 @@
                 value = value;
 
                 setTimeout(() => {
-                    listOpen = false;
+                    listOpen =
+                        isMulti &&
+                        isFocused &&
+                        keepOpen &&
+                        filteredItems.length > 0
+                            ? true
+                            : false;
+
                     activeValue = undefined;
                 });
             }
@@ -678,11 +686,14 @@
 
 <style>
     .selectContainer {
+        /*position: relative;*/
+        display: grid;
+        grid-gap: 5px;
         --internalPadding: 0 16px;
         border: var(--border, 1px solid #d8dbdf);
         border-radius: var(--borderRadius, 3px);
         box-sizing: border-box;
-        height: var(--height, 42px);
+        height: var(--container-height, 42px);
         position: relative;
         display: flex;
         align-items: center;
@@ -693,27 +704,31 @@
 
     .selectContainer input {
         cursor: default;
-        border: none;
+        border: var(--inputBorder, 'solid 1px  red !important');
         color: var(--inputColor, #3f4f5f);
-        height: var(--height, 42px);
-        line-height: var(--height, 42px);
-        padding: var(--inputPadding, var(--padding, var(--internalPadding)));
+        height: var(--inputLineHeight, 42px);
+        line-height: var(--inputLineHeight, 42px);
+        padding: 0 !important;
+        /*padding: var(--inputPadding, var(--padding, var(--internalPadding)));*/
         width: 100%;
         background: transparent;
         font-size: var(--inputFontSize, 14px);
         letter-spacing: var(--inputLetterSpacing, -0.08px);
         position: absolute;
+        height: auto !important;
         left: var(--inputLeft, 0);
         margin: var(--inputMargin, 0);
+    }
+
+    .selectContainer input:focus {
+        border: none;
+        box-shadow: none;
+        outline: none;
     }
 
     .selectContainer input::placeholder {
         color: var(--placeholderColor, #78848f);
         opacity: var(--placeholderOpacity, 1);
-    }
-
-    .selectContainer input:focus {
-        outline: none;
     }
 
     .selectContainer:hover {
@@ -722,6 +737,7 @@
 
     .selectContainer.focused {
         border-color: var(--borderFocusColor, #006fe8);
+        box-shadow: var(--boxShadow);
     }
 
     .selectContainer.disabled {
@@ -748,9 +764,10 @@
 
     .clearSelect {
         position: absolute;
-        right: var(--clearSelectRight, 10px);
-        top: var(--clearSelectTop, 11px);
-        bottom: var(--clearSelectBottom, 11px);
+        right: var(--clearSelectRight, 0px);
+        top: var(--clearSelectTop, 50%);
+        /*bottom: var(--clearSelectBottom, 50%);*/
+        transform: translate(-50%, -50%);
         width: var(--clearSelectWidth, 20px);
         color: var(--clearSelectColor, #c5cacf);
         flex: none !important;
@@ -813,9 +830,10 @@
     .multiSelect {
         display: flex;
         padding: var(--multiSelectPadding, 0 35px 0 16px);
+        min-height: var(--container-height);
         height: auto;
         flex-wrap: wrap;
-        align-items: stretch;
+        /*align-items: stretch;*/
     }
 
     .multiSelect > * {
