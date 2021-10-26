@@ -1,17 +1,19 @@
-# svelte-select
+
+# svelte-selected
+This is a convenience fork of [svelte-select](https://github.com/rob-balfre/svelte-select)
+component. All other credits go to the original author.
 
 A select/autocomplete component for Svelte apps.  With support for grouping, filtering, async and more.
 
-## Demos
+## Changes in this fork include:
+- added new prop `keepOpen` to keep the options open when is `isMulti` set to true.
+- added several css properties for better css framework integration.
 
-🌱 [Simple demo](https://svelte.dev/repl/a859c2ba7d1744af9c95037c48989193?version=3.12.1)
-
-🌻 [Advanced demo](https://svelte.dev/repl/3e032a58c3974d07b7818c0f817a06a3?version=3.20.1)
 
 ## Installation
 
 ```bash
-yarn add svelte-select
+pnpm install svelte-selected
 ```
 
 **Note:** Install as a dev dependency (yarn add svelte-select --dev) if using [Sapper](https://sapper.svelte.dev/) to avoid a SSR error.
@@ -52,6 +54,7 @@ yarn add svelte-select
 - `noOptionsMessage: String` Default: `'No options'`. Message to display in list when there are no `items`.
 - `optionIdentifier: String` Default: `'value'`. Override default identifier.
 - `labelIdentifier: String` Default: `'label'`. Override default identifier.
+- `keepOpen: Boolean` Default: `false` Keep list open until nothing is left, when in `isMulti` set to true.
 - `listOpen: Boolean` Default: `false`. Open/close list.
 - `hideEmptyState: Boolean` Default: `false`. Hide list and don't show `noOptionsMessage` when there are no `items`.
 - `containerClasses: String` Default: `''`. Add extra container classes, for example 'global-x local-y'.
