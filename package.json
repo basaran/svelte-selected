@@ -41,9 +41,11 @@
         "tape-modern": "^1.1.1"
     },
     "author": "rob-balfre",
+    "contributors" : "basaran",
     "license": "LIL",
     "keywords": [
-        "svelte"
+        "svelte",
+        "select"
     ],
     "files": [
         "src",
