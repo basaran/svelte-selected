@@ -687,10 +687,6 @@
         isFocused,
         listOpen
     );
-
-    $: if (hasError) {
-        handleFocus();
-    }
 </script>
 
 <style>
@@ -735,9 +731,18 @@
         outline: none;
     }
 
+    .selectContainer input[aria-invalid='true'] {
+        padding: 0 !important;
+    }
+
     .selectContainer input::placeholder {
         color: var(--placeholderColor, #78848f);
         opacity: var(--placeholderOpacity, 1);
+        padding-left: 0px;
+    }
+
+    .selectContainer input::placeholder {
+        padding-left: 0px;
     }
 
     .selectContainer:hover {
@@ -885,6 +890,7 @@
     on:keydown={handleKeyDown} />
 
 <div
+    id={'shit' + name}
     class="selectContainer {containerClasses}"
     class:hasError
     class:multiSelect={isMulti}
@@ -931,6 +937,8 @@
         placeholder={placeholderText}
         style={inputStyles}
         disabled={isDisabled} />
+
+    <input {name} id={'poop_' + name} type="hidden" tabindex="0" />
 
     {#if !isMulti && showSelectedItem}
         <div class="selectedItem" on:focus={handleFocus}>
@@ -1000,6 +1008,7 @@
 
     {#if !isMulti || (isMulti && !showMultiSelect)}
         <input
+            id={name}
             {name}
             type="hidden"
             value={value ? getSelectionLabel(value) : null} />
@@ -1009,6 +1018,7 @@
         {#each value as item}
             <input
                 {name}
+                id={name}
                 type="hidden"
                 value={item ? getSelectionLabel(item) : null} />
         {/each}
