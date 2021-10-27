@@ -11,6 +11,7 @@
 
     const dispatch = createEventDispatcher();
 
+    export let name = '';
     export let keepOpen = false;
     export let id = null;
     export let container = undefined;
@@ -534,7 +535,11 @@
 
     function handleFocus() {
         isFocused = true;
-        if (input) input.focus();
+        if (input) {
+            setTimeout(() => {
+                input.focus();
+            }, 100);
+        }
     }
 
     function handleWindowEvent(event) {
@@ -682,6 +687,10 @@
         isFocused,
         listOpen
     );
+
+    $: if (hasError) {
+        handleFocus();
+    }
 </script>
 
 <style>
@@ -991,7 +1000,7 @@
 
     {#if !isMulti || (isMulti && !showMultiSelect)}
         <input
-            name={inputAttributes.name}
+            {name}
             type="hidden"
             value={value ? getSelectionLabel(value) : null} />
     {/if}
@@ -999,7 +1008,7 @@
     {#if isMulti && showMultiSelect}
         {#each value as item}
             <input
-                name={inputAttributes.name}
+                {name}
                 type="hidden"
                 value={item ? getSelectionLabel(item) : null} />
         {/each}
