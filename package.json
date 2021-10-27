@@ -1,6 +1,6 @@
 {
     "name": "svelte-selected",
-    "version": "4.4.3",
+    "version": "4.4.4",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/basaran/svelte-selected.git"
@@ -41,7 +41,7 @@
         "tape-modern": "^1.1.1"
     },
     "author": "rob-balfre",
-    "contributors" : "basaran",
+    "contributors": "basaran",
     "license": "LIL",
     "keywords": [
         "svelte",
