@@ -5,29 +5,29 @@ export const zopar = (node) => {
     const debug = dbg;
     debug("using zopar.js");
 
-    const event = new Event("timetodo");
-    // Listen for the event.
-    node.addEventListener('timetodo', function (e) { /* ... */ }, false);
+    // const event = new Event("timetodo");
+    // // Listen for the event.
+    // node.addEventListener('timetodo', function (e) { /* ... */ }, false);
 
 
-    const callback = (records) => {
-        console.log(records);
-        records.forEach((record) => {
-            if (record.attributeName == 'data-felte-validation-message') {
-                console.log('dispatching');
-                node.dispatchEvent(event);
-            }
-        })
-    };
+    // const callback = (records) => {
+    //     console.log(records);
+    //     records.forEach((record) => {
+    //         if (record.attributeName == 'data-felte-validation-message') {
+    //             console.log('dispatching');
+    //             node.dispatchEvent(event);
+    //         }
+    //     })
+    // };
 
-    let observer = new MutationObserver(callback);
+    // let observer = new MutationObserver(callback);
 
-    observer.observe(node, {
-        attributes: true,
-        childList: true, // observe direct children
-        subtree: true, // and lower descendants too
-        characterData: true,
-    });
+    // observer.observe(node, {
+    //     attributes: true,
+    //     childList: true, // observe direct children
+    //     subtree: true, // and lower descendants too
+    //     characterData: true,
+    // });
 
   
     return {

@@ -1002,26 +1002,8 @@
             on:closeList={closeList} />
     {/if}
 
-<<<<<<< HEAD
-    <!-- alternate handling -->
-    {#if !isMulti || (isMulti && !showMultiSelect)}
-        <input
-            name={name + '_hidden'}
-            type="hidden"
-            value={value ? getSelectionLabel(value) : null} />
-    {/if}
-
-    {#if isMulti && showMultiSelect}
-        {#each value as item}
-=======
-    <div
-        use:zopar
-        on:timetodo={(e) => {
-            console.log('dispatcing again');
-            dispatch('timetodo');
-        }}>
+    <div>
         {#if !isMulti || (isMulti && !showMultiSelect)}
->>>>>>> 24471ce411a31dae7141cbb00967ec8f5090e445
             <input
                 {name}
                 type="hidden"
