@@ -1,6 +1,6 @@
 <script>
     import { beforeUpdate, createEventDispatcher, onMount } from 'svelte';
-
+    import { zopar } from './utils/zopar.js';
     import _List from './List.svelte';
     import _Item from './Item.svelte';
     import _Selection from './Selection.svelte';
@@ -711,7 +711,7 @@
         color: var(--inputColor, #3f4f5f);
         height: var(--inputLineHeight, 42px);
         line-height: var(--inputLineHeight, 42px);
-        padding: 0 !important;
+        padding: 0 0 0 8px !important;
         /*padding: var(--inputPadding, var(--padding, var(--internalPadding)));*/
         width: 100%;
         background: transparent;
@@ -729,8 +729,8 @@
         outline: none;
     }
 
-    .selectContainer input[aria-invalid='true'] {
-        padding: 0 !important;
+    .selectContainer input[aria-invalid] {
+        padding: 0 0 0 8px !important;
     }
 
     .selectContainer input::placeholder {
@@ -931,9 +931,9 @@
         bind:this={input}
         on:focus={handleFocus}
         bind:value={filterText}
-        {name}
         placeholder={placeholderText}
         style={inputStyles}
+        name={name + '_input'}
         disabled={isDisabled} />
 
     {#if !isMulti && showSelectedItem}
@@ -1002,6 +1002,7 @@
             on:closeList={closeList} />
     {/if}
 
+<<<<<<< HEAD
     <!-- alternate handling -->
     {#if !isMulti || (isMulti && !showMultiSelect)}
         <input
@@ -1012,10 +1013,28 @@
 
     {#if isMulti && showMultiSelect}
         {#each value as item}
+=======
+    <div
+        use:zopar
+        on:timetodo={(e) => {
+            console.log('dispatcing again');
+            dispatch('timetodo');
+        }}>
+        {#if !isMulti || (isMulti && !showMultiSelect)}
+>>>>>>> 24471ce411a31dae7141cbb00967ec8f5090e445
             <input
-                name={name + '_hidden'}
+                {name}
                 type="hidden"
-                value={item ? getSelectionLabel(item) : null} />
-        {/each}
-    {/if}
+                value={value ? getSelectionLabel(value) : null} />
+        {/if}
+
+        {#if isMulti && showMultiSelect}
+            {#each value as item}
+                <input
+                    {name}
+                    type="hidden"
+                    value={item ? getSelectionLabel(item) : null} />
+            {/each}
+        {/if}
+    </div>
 </div>
