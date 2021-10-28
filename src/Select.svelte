@@ -1002,6 +1002,7 @@
             on:closeList={closeList} />
     {/if}
 
+    <!-- alternate handling -->
     {#if !isMulti || (isMulti && !showMultiSelect)}
         <input
             name={name + '_hidden'}
