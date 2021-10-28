@@ -227,7 +227,6 @@
                 autocomplete: 'off',
                 autocorrect: 'off',
                 spellcheck: false,
-                tabindex: 0,
                 type: 'text',
                 'aria-autocomplete': 'list',
             },
@@ -536,9 +535,7 @@
     function handleFocus() {
         isFocused = true;
         if (input) {
-            setTimeout(() => {
-                input.focus();
-            }, 100);
+            input.focus();
         }
     }
 
@@ -546,6 +543,7 @@
         if (!container) return;
         const eventTarget =
             event.path && event.path.length > 0 ? event.path[0] : event.target;
+
         if (container.contains(eventTarget)) return;
         isFocused = false;
         listOpen = false;
@@ -746,12 +744,12 @@
     }
 
     .selectContainer:hover {
-        border-color: var(--borderHoverColor, #b2b8bf);
+        /*border-color: var(--borderHoverColor, #b2b8bf);*/
     }
 
     .selectContainer.focused {
-        border-color: var(--borderFocusColor, #006fe8);
-        box-shadow: var(--boxShadow);
+        /*border-color: var(--borderFocusColor, #006fe8);*/
+        /*box-shadow: var(--boxShadow);*/
     }
 
     .selectContainer.disabled {
@@ -890,7 +888,6 @@
     on:keydown={handleKeyDown} />
 
 <div
-    id={'shit' + name}
     class="selectContainer {containerClasses}"
     class:hasError
     class:multiSelect={isMulti}
@@ -934,11 +931,10 @@
         bind:this={input}
         on:focus={handleFocus}
         bind:value={filterText}
+        {name}
         placeholder={placeholderText}
         style={inputStyles}
         disabled={isDisabled} />
-
-    <input {name} id={'poop_' + name} type="hidden" tabindex="0" />
 
     {#if !isMulti && showSelectedItem}
         <div class="selectedItem" on:focus={handleFocus}>
@@ -1008,8 +1004,7 @@
 
     {#if !isMulti || (isMulti && !showMultiSelect)}
         <input
-            id={name}
-            {name}
+            name={name + '_hidden'}
             type="hidden"
             value={value ? getSelectionLabel(value) : null} />
     {/if}
@@ -1017,8 +1012,7 @@
     {#if isMulti && showMultiSelect}
         {#each value as item}
             <input
-                {name}
-                id={name}
+                name={name + '_hidden'}
                 type="hidden"
                 value={item ? getSelectionLabel(item) : null} />
         {/each}

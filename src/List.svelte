@@ -203,13 +203,18 @@
     }
 
     function isItemHover(hoverItemIndex, item, itemIndex, items) {
-        return isItemSelectable(item) && (hoverItemIndex === itemIndex || items.length === 1);
+        return (
+            isItemSelectable(item) &&
+            (hoverItemIndex === itemIndex || items.length === 1)
+        );
     }
 
     function isItemSelectable(item) {
-        return (item.isGroupHeader && item.isSelectable) ||
+        return (
+            (item.isGroupHeader && item.isSelectable) ||
             item.selectable ||
-            !item.hasOwnProperty('selectable') // Default; if `selectable` was not specified, the object is selectable
+            !item.hasOwnProperty('selectable')
+        ); // Default; if `selectable` was not specified, the object is selectable
     }
 
     let listStyle;
@@ -249,6 +254,13 @@
         width: 100%;
         left: var(--listLeft, 0);
         right: var(--listRight, 0);
+
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -khtml-user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
     }
 
     .virtualList {
